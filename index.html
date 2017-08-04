@@ -34,7 +34,7 @@
       methods: {
         search: function () {
           console.log(this.query);
-          fetch(`http://www.omdbapi.com/?apikey=8e00a789&t=${this.query}&y=&plot=short&r=json`)
+          fetch(`https://www.omdbapi.com/?apikey=8e00a789&t=${this.query}&y=&plot=short&r=json`)
             .then(result => result.json())
             .then(result => {
               this.$set(this, 'result', result)
