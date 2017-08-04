@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <title>Sample "Hello, World" Application</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="query" v-on:keyup.enter="search">
+    <button v-on:click="search">Search</button>
+    <br/>
+        <div v-if="result.Response === 'True'">
+      <div v-for="(value, key) in result">
+        {{ key }} : {{ value }}
+      </div>
+      <h1>{{result.Title}} ({{result.imdbRating}})</h1>
+      <img v-Bind:src="result.Poster" alt="">
+      <p>{{result.Plot}}</p>
+      <br>
+      <div>{{result.Actors}}</div>
+    </div>
+    <div v-else>
+      <p>{{result.Error}}</p>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        query: "",
+        result: false
+      },
+      methods: {
+        search: function () {
+          console.log(this.query);
+          fetch(`http://www.omdbapi.com/?apikey=8e00a789&t=${this.query}&y=&plot=short&r=json`)
+            .then(result => result.json())
+            .then(result => {
+              this.$set(this, 'result', result)
+            })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
